@@ -1,0 +1,15 @@
+# Operating system and editors
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Local agent state and exported sessions: never published
+.claude/
+.serena/
+.opencode/
+session-ses_*.md
+
+# Credentials and local environment
+.env
+.env.*

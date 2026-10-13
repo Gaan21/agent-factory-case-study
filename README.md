@@ -58,10 +58,12 @@ Separation is central to the design: the agent works on its task material, while
 privileged operations are controlled from outside its environment. A model's
 proposal does not grant permissions by itself.
 
-One of the next steps is **giving agents a terminal and tools** so they can run
-useful checks, while keeping the execution environment separate from model
-credentials. This case study will explain that boundary and its outcomes once
-the solution has been verified.
+Agents can now **run commands through a terminal**, in a second environment with
+no network and no model credentials. The program that talks to the model still
+runs nothing itself, and every command is recorded by the factory, not by the
+agent. [A terminal for the agents](agent-terminal.md) explains the boundary, what
+was verified and what it does not do yet. Repeating one task with the terminal took
+12 minutes instead of 29. Installing a project's dependencies is still to come.
 
 ## How we will assess a deliverable
 
