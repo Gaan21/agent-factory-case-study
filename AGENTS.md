@@ -1,37 +1,37 @@
-# Instrucciones para mantener el caso de estudio
+# Case study maintenance instructions
 
-## Objetivo
+## Purpose
 
-Este repositorio público explica para personas cómo funciona y evoluciona una
-factoría personal de agentes. Es un caso de estudio visual y progresivo, no un
-manual de operación ni una copia del proyecto privado.
+This public repository explains how a personal agent factory works and evolves,
+in plain language. It is a visual, evolving case study, not an operations manual
+or a copy of the private project.
 
-## Al actualizarlo
+## When updating it
 
-- Lee primero `README.md` y conserva una entrada breve y comprensible.
-- Explica cada pieza en llano antes de usar su nombre técnico.
-- Tras un avance relevante y verificado, actualiza la explicación que haya cambiado.
-  Añade un diagrama, ejemplo o resultado solo cuando ayude a entenderlo.
-- Distingue diseño, trabajo en curso y comportamiento verificado. No presentes una
-  propuesta como algo construido ni extrapoles una prueba a una garantía general.
-- Explica el problema, el cambio y su evidencia. Incluye límites o aprendizajes
-  concretos cuando sean relevantes.
-- Prefiere Markdown y Mermaid, que GitHub muestra directamente. Evita generar una
-  web o incorporar herramientas de construcción sin una necesidad acordada.
-- No crees secciones vacías para trabajo futuro ni un diario de cada sesión.
-- Si no hubo un cambio relevante para el lector, no añadas contenido por rutina.
+- Write all repository content in **English**, including diagrams and agent instructions.
+- Read `README.md` first and keep the introduction short and understandable.
+- Explain each component in plain language before using its technical name.
+- After a relevant, verified advance, update the explanation that has changed.
+  Add a diagram, example, or result only when it helps readers understand it.
+- Distinguish design, work in progress, and verified behavior. Do not present a
+  proposal as implemented or extrapolate a test into a general guarantee.
+- Explain the problem, the change, and its evidence. Include concrete limitations
+  or lessons when relevant.
+- Prefer Markdown and Mermaid, which GitHub renders directly. Avoid creating a
+  website or adding build tools without an agreed need.
+- Do not create empty sections for future work or a session-by-session diary.
+- If nothing relevant to the reader has changed, do not add content routinely.
 
-## Material publicable
+## Publishable material
 
-La fuente de redacción es el diseño preparado para publicación en el proyecto
-privado. No extraigas material de sus registros operativos, documentos de estado,
-runbooks, transcripciones ni de la documentación de la infraestructura.
+Use the design material prepared for publication in the private project as the
+writing source. Do not extract material from its operational records, status
+documents, runbooks, transcripts, or infrastructure documentation.
 
-Usa nombres y datos ficticios en los ejemplos. No incluyas nombres de repositorios
-privados, cuentas de agentes, hosts, direcciones de red, rutas reales, credenciales,
-configuraciones autenticadas ni enlaces a documentación privada. Las capturas y
-los resultados deben estar preparados expresamente para publicación.
+Use fictional names and data in examples. Do not include private repository names,
+agent accounts, hosts, network addresses, actual filesystem paths, credentials,
+authenticated configurations, or links to private documentation. Screenshots and
+results must be prepared specifically for publication.
 
-Antes de entregar una actualización, revisa el diff, los enlaces y la coherencia
-entre diagramas y texto. El agente prepara el contenido; la publicación la realiza
-la persona propietaria del proyecto.
+Before delivering an update, review the diff, links, and consistency between
+diagrams and text. The agent prepares the content; the project owner publishes it.

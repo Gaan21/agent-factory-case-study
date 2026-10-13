@@ -1,95 +1,95 @@
-# Agent Factory — caso de estudio
+# Agent Factory — Case Study
 
-**Una factoría personal de agentes: de una conversación a una entrega comprobable.**
+**A personal agent factory: from a conversation to a verifiable deliverable.**
 
-Este repositorio explica, para personas, cómo se diseña y evoluciona una factoría de
-trabajo con IA. Empieza con una vista sencilla y crecerá con los avances del proyecto:
-diagramas, ejemplos y decisiones explicadas con sus resultados.
+This repository explains how a personal AI agent factory is designed and evolves,
+in plain language. It starts with a simple overview and will grow alongside the
+project, with diagrams, examples, and decisions explained through their outcomes.
 
-El objetivo final es que una persona pueda aceptar un cambio **probando el producto
-y consultando las evidencias, sin tener que leer su código**. Es un objetivo en
-construcción, no una garantía de esta primera versión.
+The long-term goal is for a person to accept a change **by trying the product and
+examining the evidence, without having to read its code**. This is a goal under
+development, not a guarantee provided by this first version.
 
-## Cómo funciona
+## How it works
 
-1. **Conversar.** Un jefe de proyecto virtual aclara la petición con la persona.
-2. **Acordar.** Se fija un encargo: objetivo, límites y criterios de aceptación.
-3. **Trabajar.** Un agente recibe una versión concreta del proyecto en un entorno aislado.
-4. **Comprobar.** Un programa verifica reglas concretas sobre la entrega.
-5. **Revisar.** Otro agente examina el resultado en una sesión nueva. Si encuentra
-   problemas, el trabajo vuelve para corregirse; si se agotan los límites, espera
-   una decisión humana.
-6. **Entregar.** La persona recibe los cambios y la evidencia, y decide si los acepta.
+1. **Discuss.** A virtual project manager clarifies the request with the person.
+2. **Agree.** A task is defined and fixed: its goal, boundaries, and acceptance criteria.
+3. **Work.** An agent receives a specific version of the project in an isolated environment.
+4. **Check.** A program verifies concrete rules against the deliverable.
+5. **Review.** Another agent examines the result in a fresh session. Problems send
+   the work back for correction; if the limits are reached, the task waits for a
+   human decision.
+6. **Deliver.** The person receives the changes and evidence, and decides whether to accept them.
 
 ```mermaid
 flowchart TD
-    H[Persona] --> P[Conversación con el jefe de proyecto]
-    P --> E[Encargo aprobado]
-    E --> I[Agente implementador en entorno aislado]
-    I --> C{Comprobaciones automáticas}
-    C -->|Pasan| R{Revisión en una sesión nueva}
-    C -->|Fallan| I
-    R -->|Pide correcciones| I
-    R -->|Acepta| D[Entrega y evidencia]
-    D --> U[Prueba y decisión humana]
-    C -.->|Límite agotado o bloqueo| B[Espera una decisión humana]
-    R -.->|Límite agotado o bloqueo| B
+    H[Person] --> P[Conversation with the project manager]
+    P --> E[Approved task]
+    E --> I[Implementing agent in an isolated environment]
+    I --> C{Automated checks}
+    C -->|Pass| R{Review in a fresh session}
+    C -->|Fail| I
+    R -->|Requests corrections| I
+    R -->|Accepts| D[Deliverable and evidence]
+    D --> U[Human testing and decision]
+    C -.->|Limit reached or blocked| B[Wait for a human decision]
+    R -.->|Limit reached or blocked| B
 ```
 
-El recorrido deja un registro: qué versión se usó, qué cambió, qué se comprobó y
-qué decisión se tomó. El resultado revisado se identifica con una huella de su
-contenido, para que la revisión corresponda a esa entrega exacta.
+The workflow leaves a record: which version was used, what changed, what was
+checked, and which decision was made. A content fingerprint identifies the
+reviewed result, tying the review to that exact deliverable.
 
-## Las piezas, en llano
+## The components, in plain language
 
-| Pieza | Responsabilidad |
+| Component | Responsibility |
 |---|---|
-| **Jefe de proyecto** | Convertir una necesidad en un encargo claro. |
-| **Coordinador** | Preparar el material y conducir las etapas; es un programa, no otro agente que improvisa el flujo. |
-| **Implementador** | Producir los cambios del encargo. |
-| **Comprobaciones automáticas** | Aplicar reglas sin opinión: archivos permitidos, formato o detección de secretos, según la tarea. |
-| **Revisor** | Examinar el resultado sin heredar el razonamiento del implementador. |
-| **Registro** | Conservar decisiones y evidencias del recorrido. |
-| **Persona** | Definir el objetivo y dar la aceptación final. |
+| **Project manager** | Turn a need into a clear task. |
+| **Coordinator** | Prepare the material and guide the stages; it is a program, not another agent improvising the workflow. |
+| **Implementer** | Produce the changes required by the task. |
+| **Automated checks** | Apply rules without judgment: allowed files, formatting, or secret detection, depending on the task. |
+| **Reviewer** | Examine the result without inheriting the implementer's reasoning. |
+| **Record** | Preserve decisions and evidence from the workflow. |
+| **Person** | Define the goal and give final acceptance. |
 
-## Herramientas y separación
+## Tools and separation
 
-La separación es una parte central del diseño: el agente trabaja sobre el material
-de su tarea; las operaciones con permisos se controlan desde fuera de su entorno.
-Una propuesta del modelo no concede permisos por sí misma.
+Separation is central to the design: the agent works on its task material, while
+privileged operations are controlled from outside its environment. A model's
+proposal does not grant permissions by itself.
 
-Una de las siguientes piezas es **dar terminal y herramientas a los agentes** para
-que puedan ejecutar comprobaciones útiles, manteniendo separado el entorno de
-ejecución de las credenciales del modelo. Este caso de estudio explicará esa
-frontera y sus resultados cuando la solución esté verificada.
+One of the next steps is **giving agents a terminal and tools** so they can run
+useful checks, while keeping the execution environment separate from model
+credentials. This case study will explain that boundary and its outcomes once
+the solution has been verified.
 
-## Cómo sabremos que una entrega está bien
+## How we will assess a deliverable
 
-El objetivo combina cinco capas:
+The goal combines five layers:
 
-| Capa | Qué comprueba | Situación de partida |
+| Layer | What it checks | Starting point |
 |---|---|---|
-| Reglas automáticas | Que el cambio respete las condiciones comprobables del encargo. | Parte del recorrido básico. |
-| Tests del código | Que las piezas del programa se comporten como se espera. | Por incorporar al flujo de producción de código. |
-| Producto funcionando | Que la web o la aplicación se pueda usar y cumpla los recorridos esperados. | Por incorporar. |
-| Revisión independiente | Que el resultado responda al encargo y detectar problemas adicionales. | Parte del recorrido básico. |
-| Prueba de la persona | Que el resultado resuelva la necesidad real. | La aceptación sigue siendo humana; la experiencia de prueba del producto está por construir. |
+| Automated rules | Whether the change meets the task's mechanically verifiable conditions. | Part of the basic workflow. |
+| Code tests | Whether the program's components behave as expected. | To be incorporated into the code-production workflow. |
+| Running product | Whether the website or application is usable and supports the expected user journeys. | To be incorporated. |
+| Independent review | Whether the result meets the task requirements, and whether there are additional problems. | Part of the basic workflow. |
+| Human testing | Whether the result solves the actual need. | Acceptance remains human; the product-testing experience has yet to be built. |
 
-Pasar una capa no sustituye a las demás. Cada avance debe explicar qué se ha
-comprobado realmente y qué sigue siendo un objetivo.
+Passing one layer does not replace the others. Each update should explain what
+has actually been verified and what remains a goal.
 
-## Un caso de estudio que crece con el proyecto
+## A case study that grows with the project
 
-La primera versión se limita al recorrido y a las responsabilidades. Conforme
-avance la factoría, añadiremos ejemplos de encargos, diagramas de sus fronteras,
-resultados medidos y lecciones aprendidas.
+The first version focuses on the workflow and responsibilities. As the factory
+progresses, we will add task examples, boundary diagrams, measured results, and
+lessons learned.
 
-Cada mejora responderá a tres preguntas:
+Each update will answer three questions:
 
-- **¿Qué problema había?**
-- **¿Qué cambió y cómo funciona ahora?**
-- **¿Qué evidencia tenemos y qué queda por resolver?**
+- **What was the problem?**
+- **What changed, and how does it work now?**
+- **What evidence do we have, and what remains unresolved?**
 
-La documentación está pensada para entender el sistema sin conocer su código ni
-su infraestructura privada. Las instrucciones de mantenimiento están en
+This documentation is intended to make the system understandable without knowing
+its code or private infrastructure. Maintenance instructions are in
 [AGENTS.md](AGENTS.md).
