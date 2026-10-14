@@ -90,9 +90,18 @@ an agent says it ran is not what ran.**
 | Limit | Value |
 |---|---|
 | Commands at once | One |
-| Time per command | 2 minutes unless the agent asks for more; 10 at most |
+| Time per command | One hour by default and at most; the agent can request less |
+| Time per implementer or reviewer execution | Six hours |
+| Time without output from the agent | 90 minutes |
 | What returns to the agent from long output | The beginning and the end, with the total size |
 | Processes inside the box | 512 |
+
+The time limits were increased so a compilation does not depend on the agent remembering
+to request a longer timeout. A command returns as soon as it finishes: one hour is a ceiling,
+not a minimum. The agent programs wait slightly longer than the command limit to receive
+its result. Execution and silence limits keep waiting bounded; they are not a task spending
+cap. A long call with the real agent programs remains to be measured with coding tasks;
+the real command measured in the first implementation lasted 70 seconds.
 
 ## What evidence do we have?
 
