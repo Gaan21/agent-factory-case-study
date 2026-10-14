@@ -63,7 +63,8 @@ no network and no model credentials. The program that talks to the model still
 runs nothing itself, and every command is recorded by the factory, not by the
 agent. [A terminal for the agents](agent-terminal.md) explains the boundary, what
 was verified and what it does not do yet. Repeating one task with the terminal took
-12 minutes instead of 29. Installing a project's dependencies is still to come.
+12 minutes instead of 29. Installing a project's dependencies is designed, with
+the agent never choosing what gets installed, but not built yet.
 
 ## How we will assess a deliverable
 

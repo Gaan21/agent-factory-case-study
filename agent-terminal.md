@@ -1,8 +1,8 @@
 # A terminal for the agents
 
 **Status: verified** for the first part, a terminal with no network and no new
-tools. Installing a project's dependencies is a second part and has not been
-designed yet. The savings compared with working without a terminal have been
+tools. Installing a project's dependencies is a second part: **designed, not
+built yet** ([below](#next-dependencies-designed-not-built-yet)). The savings compared with working without a terminal have been
 measured in **a single repetition** of the same task.
 
 ## What was the problem?
@@ -153,11 +153,11 @@ shows the direction and the order of magnitude, not a figure that will repeat.
   machine is a disposable virtual machine dedicated to this work. Destroying the
   machine does not undo a credential that has already been stolen.
 - **No memory or CPU limit.** One command can exhaust the machine. Restarting it
-  fixes that and nothing in the record is lost. This is open.
+  fixes that and nothing in the record is lost. A memory cap per turn is part of
+  the second part's design, not built yet.
 - **No network and no installing.** Only what the machine already has is
   available. Running a project's tests and linter needs its dependencies. That is
-  the second part: a fixed step that downloads them without running anything, then
-  installs them offline.
+  the second part, below.
 - **A task cannot add or update dependencies**, for now.
 - **One repetition is not a distribution.** How much the savings vary between runs
   is unknown, and so is how much memory and CPU a round uses when it runs tests or
@@ -177,3 +177,64 @@ shows the direction and the order of magnitude, not a figure that will repeat.
 - **Measure a control with the real program and its real configuration.** A
   laptop does not have the administrator-only policy, so what was measured there
   was not enough. The verification that counts was done on the factory's machine.
+
+## Next: dependencies (designed, not built yet)
+
+**Status: designed and decided, not built.** Nothing in this section has been
+measured on the factory's machine yet.
+
+**The problem.** A web project's tests, linter and build need its dependencies:
+hundreds of third-party packages. The command box has no network, so they must be
+installed beforehand. And installing means running someone else's code: some
+packages run a program of their own when installed.
+
+**How it will work:**
+
+1. The person decides the dependencies, outside the factory. The project's lock
+   file pins every version with its fingerprint.
+2. Before the first turn, **the factory installs, not the agent**: exactly what
+   the lock file says in the starting version. It does so in a third box that has
+   Internet access but no credentials, and that **sees only the dependency lists**,
+   not the project's code.
+3. What gets installed is mounted **read-only** in the command box of the
+   implementer and of the reviewer.
+4. A rule **rejects any deliverable that changes dependencies**. If the agent
+   needs a new library, it stops and says so.
+
+```mermaid
+flowchart LR
+    L[(Lock file of the starting version)] --> I
+    subgraph I[Install box: Internet, no credentials, no code]
+        P[Package manager]
+    end
+    P --> D[(Installed dependencies)]
+    D -->|read-only| C
+    subgraph C[Command box: no network]
+        X[Tests, linter, build]
+    end
+    T[(Task material)] --- X
+```
+
+| Decision | Why |
+|---|---|
+| Dependencies live outside the task material, read-only | A stuck agent cannot "fix" a test by patching a library where nobody looks. The deliverable does not carry them, and the reviewer tests against the same installation. |
+| No cache between tasks, with a time watcher | One task cannot contaminate the next. Each installation records how long it took and what it downloaded; if it exceeds 5 minutes or 20% of the task, the report flags it, and that data decides whether a cache is worth it. |
+| A deliverable that changes dependencies is rejected | What was tested is what gets delivered, and the person chooses the third-party code. |
+| A memory cap per turn | One command can no longer exhaust the machine. |
+| Exact runtime and package-manager versions, from their official source, checked by fingerprint | Without network the package manager cannot download itself; if a task asks for a version that is not installed, it does not start. |
+
+**The accepted risk.** The install programs of the allowed packages run with
+Internet access. They see no credentials and no code. The worst they can leave
+behind is a malicious binary, which would then run with no network and no
+credentials. The lock file's fingerprints and a one-day wait before accepting a
+freshly published version narrow that risk.
+
+**What preparing it taught.** Two findings came from measuring, not from reasoning:
+
+- **A deliverable is compared file by file with the original.** Dependencies
+  installed inside the task material, hundreds of megabytes and tens of thousands
+  of files, would have ended up in it. That is why they live outside.
+- **An audit of each project, before touching the factory,** found what broke
+  working offline: a font downloaded at build time, the package manager trying to
+  download its own version, and an in-house package on a registry that required a
+  credential even to download. Those are fixed in each project, not in the factory.
