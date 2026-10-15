@@ -40,6 +40,15 @@ The workflow leaves a record: which version was used, what changed, what was
 checked, and which decision was made. A content fingerprint identifies the
 reviewed result, tying the review to that exact deliverable.
 
+To judge a deliverable, you need the exact task it was built against. Each task's
+page now shows the **complete approved task**, folded away until opened, in the
+version that was frozen. It appears only if it matches the fingerprint recorded
+when the task was approved; otherwise the page says it is not available rather
+than showing a different text. A person and an agent helping with the review read
+the same page, with no special access and no copying from the conversation with
+the project manager. Verified in the factory and checked in the browser by its
+owner; the page is still plain and its design will be improved later.
+
 ## The components, in plain language
 
 | Component | Responsibility |
