@@ -47,8 +47,8 @@ flowchart TD
         C{Automated checks}
         K[Seal the result with a fingerprint]
         D[Deliver: changes, report and phone notification]
-        B["Open a branch and pull request (next)"]
-        X["Close the task on merge (next)"]
+        B[Open a branch and pull request]
+        X[Close the task on merge]
         H[Stop and wait for a human decision]
     end
     A --> P --> F --> Z --> S --> G --> I --> C
@@ -79,10 +79,12 @@ flowchart TD
    task stops and waits for you.
 7. **Deliver.** The changes and a report — cost, tokens, rounds and minor findings — appear on the
    task's page, and your phone gets a notification.
-8. **Merge.** Today a person brings the changes over and opens the pull request. **Next** (built,
-   not yet installed): the factory pushes its own branch, opens the pull request assigning you as
-   reviewer, and closes the task when you merge. It can never write to the main branch: GitHub's own
-   rules reject it.
+8. **Merge.** The factory pushes its own branch, opens the pull request assigning you as
+   reviewer, and closes the task when you merge. It cannot write to the main branch: GitHub's own
+   rules reject it. Tested against GitHub with the publisher's credential: writing to the main
+   branch, creating tags, changing workflows, merging its own pull request, changing settings or
+   rules and granting itself more access were all rejected; its own branch and pull request were
+   accepted.
 9. **Deploy.** Only a person deploys, from GitHub or by asking an assistant that uses their own
    account. The factory never deploys.
 
@@ -104,7 +106,7 @@ flowchart LR
     Page --> Coord[Coordinator: guides the stages, holds no keys]
     Coord --> ModelBox[Model box: one agent, its model credential only]
     ModelBox -->|asks to run a command| CmdBox[Command box: no network, no credentials]
-    Coord --> Pub["Publisher (next): the only GitHub write key"]
+    Coord --> Pub[Publisher: the only GitHub write key]
     Pub -->|own branch and pull request only| GH[(GitHub)]
     GH -->|protected main branch: only you merge| You
 ```
@@ -114,7 +116,7 @@ flowchart LR
 | Agents | Read the task material and propose changes | See other agents' work, reach the home network, hold keys, publish |
 | Command box | Run the agent's commands | Reach the network or any credential |
 | Coordinator | Guide the stages and record everything | Use any key |
-| Publisher (next) | Push a new branch and open its pull request | Merge, deploy, run workflows or change settings |
+| Publisher | Push a new branch and open its pull request | Merge, deploy, change workflows or change settings |
 | GitHub rules | Reject writes to protected branches | — they hold even if the factory were compromised |
 
 ## Where it stands
@@ -124,7 +126,7 @@ flowchart LR
 | Conversation, frozen task, implementer, automated checks, independent review, record | **Verified** on real tasks, so far documentation and analysis work |
 | Task page, start from the phone, model choice per role, notifications | **Verified** |
 | [Terminal for the agents](agent-terminal.md), with no network | **Verified**: the same task took 12 minutes instead of 29 |
-| Automatic branch and pull request, task closed on merge | **Built and tested** against a simulated GitHub; **not yet installed** |
+| Automatic branch and pull request, task closed on merge | **Installed**; GitHub's rejection of forbidden operations **verified**; the first pull request from a real task is pending |
 | Installing a project's dependencies, so code tasks can run their tests | **Designed** |
 | Code tests and checks on the running product | **Planned** |
 
