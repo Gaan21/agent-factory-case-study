@@ -1,107 +1,151 @@
 # Agent Factory — Case Study
 
-**A personal agent factory: from a conversation to a verifiable deliverable.**
+**A small software development department staffed by AI agents, with a person as the lead.**
 
-This repository explains how a personal AI agent factory is designed and evolves,
-in plain language. It starts with a simple overview and will grow alongside the
-project, with diagrams, examples, and decisions explained through their outcomes.
+You describe what you need. A virtual project manager turns it into a precise task. One agent
+builds it, a program checks it, a second agent reviews it, and the result comes back with its
+evidence, ready to become a pull request. A person merges and deploys. Nothing is accepted because
+an agent says it went well.
 
-The long-term goal is for a person to accept a change **by trying the product and
-examining the evidence, without having to read its code**. This is a goal under
-development, not a guarantee provided by this first version.
+This repository explains how the factory works and how it evolves, in plain language. The long-term
+goal is for a person to accept a change **by trying the product and examining the evidence, without
+having to read its code**. That is a goal under development, not a guarantee of this version.
 
-## How it works
+## A development department, in small
 
-1. **Discuss.** A virtual project manager clarifies the request with the person.
-2. **Agree.** A task is defined and fixed: its goal, boundaries, and acceptance criteria.
-3. **Work.** An agent receives a specific version of the project in an isolated environment.
-4. **Check.** A program verifies concrete rules against the deliverable.
-5. **Review.** Another agent examines the result in a fresh session. Problems send
-   the work back for correction; if the limits are reached, the task waits for a
-   human decision.
-6. **Deliver.** The person receives the changes and evidence, and decides whether to accept them.
+| In a team | In the factory |
+|---|---|
+| Product manager who clarifies the request | **Project manager agent**: talks with you and writes the task |
+| Developer | **Implementer agent**: makes the change in an isolated workspace |
+| Continuous integration | **Automated checks**: rules that apply without judgment |
+| Code review | **Reviewer agent**: a different session that never sees the implementer's reasoning |
+| Team lead or client | **You**: approve the task, merge the result and deploy |
+| Issue tracker and history | **Record**: the state, evidence and cost of every task |
+
+Each role can run on a different model, even from different providers, chosen per task. A model
+never grants permissions: it only proposes.
+
+## The life of a task
 
 ```mermaid
 flowchart TD
-    H[Person] --> P[Conversation with the project manager]
-    P --> E[Approved task]
-    E --> I[Implementing agent in an isolated environment]
-    I --> C{Automated checks}
-    C -->|Pass| R{Review in a fresh session}
+    subgraph You
+        A[Describe the need]
+        F[Approve the task]
+        S[Press Start on the task page]
+        M[Review and merge the pull request]
+        Y[Deploy when you decide]
+    end
+    subgraph Agents
+        P[Project manager writes the task]
+        I[Implementer makes the change]
+        R[Reviewer examines it in a fresh session]
+    end
+    subgraph Factory["Factory programs, no AI"]
+        Z[Freeze the task with a fingerprint]
+        G[Fetch the latest code, read-only]
+        C{Automated checks}
+        K[Seal the result with a fingerprint]
+        D[Deliver: changes, report and phone notification]
+        B["Open a branch and pull request (next)"]
+        X["Close the task on merge (next)"]
+        H[Stop and wait for a human decision]
+    end
+    A --> P --> F --> Z --> S --> G --> I --> C
     C -->|Fail| I
-    R -->|Requests corrections| I
-    R -->|Accepts| D[Deliverable and evidence]
-    D --> U[Human testing and decision]
-    C -.->|Limit reached or blocked| B[Wait for a human decision]
-    R -.->|Limit reached or blocked| B
+    C -->|Pass| K --> R
+    R -->|Asks for corrections| I
+    R -->|Accepts| D --> B --> M --> X
+    M --> Y
+    C -.->|Limits reached| H
+    R -.->|Limits reached| H
 ```
 
-The workflow leaves a record: which version was used, what changed, what was
-checked, and which decision was made. A content fingerprint identifies the
-reviewed result, tying the review to that exact deliverable.
+1. **Talk.** You explain the need to the project manager, from a phone or a computer. It reads the
+   project and asks its questions at the start, not halfway through.
+2. **Agree.** It proposes a task: goal, acceptance criteria, what is out of scope and which checks
+   will apply. Your approval **freezes** that version with a fingerprint. Changing the scope later
+   creates a new version; it never rewrites the agreed one.
+3. **Start.** On the task's page you choose which model implements and which reviews, and press
+   Start. The factory refuses to start on a project with an open pull request, then fetches the
+   latest code with a read-only key.
+4. **Build.** The implementer works in an isolated workspace. Its commands run in a second box with
+   no network and no credentials, and every command is recorded.
+5. **Check.** Programs apply the task's rules: only allowed files changed, no secrets, instruction
+   files untouched unless you approved that exact change. A failure goes straight back to the same
+   implementer session.
+6. **Review.** The result is sealed with a fingerprint, so the reviewer examines exactly that.
+   Corrections go back to the implementer. After three implementer sessions or three reviews, the
+   task stops and waits for you.
+7. **Deliver.** The changes and a report — cost, tokens, rounds and minor findings — appear on the
+   task's page, and your phone gets a notification.
+8. **Merge.** Today a person brings the changes over and opens the pull request. **Next** (built,
+   not yet installed): the factory pushes its own branch, opens the pull request assigning you as
+   reviewer, and closes the task when you merge. It can never write to the main branch: GitHub's own
+   rules reject it.
+9. **Deploy.** Only a person deploys, from GitHub or by asking an assistant that uses their own
+   account. The factory never deploys.
 
-To judge a deliverable, you need the exact task it was built against. Each task's
-page now shows the **complete approved task**, folded away until opened, in the
-version that was frozen. It appears only if it matches the fingerprint recorded
-when the task was approved; otherwise the page says it is not available rather
-than showing a different text. A person and an agent helping with the review read
-the same page, with no special access and no copying from the conversation with
-the project manager. Verified in the factory and checked in the browser by its
-owner; the page is still plain and its design will be improved later.
+Every step leaves a record: which version of the code and the task was used, what changed, what was
+checked, who decided and what it cost. The record is chained, so altering an entry is detectable.
 
-## The components, in plain language
+To judge a deliverable you need the exact task it was built against. Each task's page shows the
+**complete approved task**, folded away until opened, only if it matches the fingerprint recorded at
+approval; otherwise it says it is not available instead of showing a different text.
 
-| Component | Responsibility |
-|---|---|
-| **Project manager** | Turn a need into a clear task. |
-| **Coordinator** | Prepare the material and guide the stages; it is a program, not another agent improvising the workflow. |
-| **Implementer** | Produce the changes required by the task. |
-| **Automated checks** | Apply rules without judgment: allowed files, formatting, or secret detection, depending on the task. |
-| **Reviewer** | Examine the result without inheriting the implementer's reasoning. |
-| **Record** | Preserve decisions and evidence from the workflow. |
-| **Person** | Define the goal and give final acceptance. |
+## Who can do what
 
-## Tools and separation
+The design assumes that an agent can be manipulated by what it reads, and that the machine it runs
+on could be lost entirely. So each piece holds only what its job needs.
 
-Separation is central to the design: the agent works on its task material, while
-privileged operations are controlled from outside its environment. A model's
-proposal does not grant permissions by itself.
+```mermaid
+flowchart LR
+    You([You, from phone or computer]) --> Page[Task page and notifications]
+    Page --> Coord[Coordinator: guides the stages, holds no keys]
+    Coord --> ModelBox[Model box: one agent, its model credential only]
+    ModelBox -->|asks to run a command| CmdBox[Command box: no network, no credentials]
+    Coord --> Pub["Publisher (next): the only GitHub write key"]
+    Pub -->|own branch and pull request only| GH[(GitHub)]
+    GH -->|protected main branch: only you merge| You
+```
 
-Agents can now **run commands through a terminal**, in a second environment with
-no network and no model credentials. The program that talks to the model still
-runs nothing itself, and every command is recorded by the factory, not by the
-agent. [A terminal for the agents](agent-terminal.md) explains the boundary, what
-was verified and what it does not do yet. Repeating one task with the terminal took
-12 minutes instead of 29. Installing a project's dependencies is designed, with
-the agent never choosing what gets installed, but not built yet.
-
-## How we will assess a deliverable
-
-The goal combines five layers:
-
-| Layer | What it checks | Starting point |
+| Piece | Can | Cannot |
 |---|---|---|
-| Automated rules | Whether the change meets the task's mechanically verifiable conditions. | Part of the basic workflow. |
-| Code tests | Whether the program's components behave as expected. | To be incorporated into the code-production workflow. |
-| Running product | Whether the website or application is usable and supports the expected user journeys. | To be incorporated. |
-| Independent review | Whether the result meets the task requirements, and whether there are additional problems. | Part of the basic workflow. |
-| Human testing | Whether the result solves the actual need. | Acceptance remains human; the product-testing experience has yet to be built. |
+| Agents | Read the task material and propose changes | See other agents' work, reach the home network, hold keys, publish |
+| Command box | Run the agent's commands | Reach the network or any credential |
+| Coordinator | Guide the stages and record everything | Use any key |
+| Publisher (next) | Push a new branch and open its pull request | Merge, deploy, run workflows or change settings |
+| GitHub rules | Reject writes to protected branches | — they hold even if the factory were compromised |
 
-Passing one layer does not replace the others. Each update should explain what
-has actually been verified and what remains a goal.
+## Where it stands
+
+| Part | Status |
+|---|---|
+| Conversation, frozen task, implementer, automated checks, independent review, record | **Verified** on real tasks, so far documentation and analysis work |
+| Task page, start from the phone, model choice per role, notifications | **Verified** |
+| [Terminal for the agents](agent-terminal.md), with no network | **Verified**: the same task took 12 minutes instead of 29 |
+| Automatic branch and pull request, task closed on merge | **Built and tested** against a simulated GitHub; **not yet installed** |
+| Installing a project's dependencies, so code tasks can run their tests | **Designed** |
+| Code tests and checks on the running product | **Planned** |
+
+## How a deliverable will be assessed
+
+| Layer | What it checks | Today |
+|---|---|---|
+| Automated rules | Whether the change meets the task's mechanically verifiable conditions | In the workflow |
+| Code tests | Whether the program's parts behave as expected | To be added |
+| Running product | Whether the website or app works for the expected user journeys | To be added |
+| Independent review | Whether the result meets the task, and what else is wrong | In the workflow |
+| Human testing | Whether it solves the actual need | Always human; the testing experience is to be built |
+
+Passing one layer does not replace the others.
 
 ## A case study that grows with the project
 
-The first version focuses on the workflow and responsibilities. As the factory
-progresses, we will add task examples, boundary diagrams, measured results, and
-lessons learned.
+Each update answers three questions: **What was the problem? What changed, and how does it work
+now? What evidence is there, and what remains open?** Deep dives so far:
 
-Each update will answer three questions:
+- [A terminal for the agents](agent-terminal.md): how agents run commands without network or
+  credentials, and what it saved.
 
-- **What was the problem?**
-- **What changed, and how does it work now?**
-- **What evidence do we have, and what remains unresolved?**
-
-This documentation is intended to make the system understandable without knowing
-its code or private infrastructure. Maintenance instructions are in
-[AGENTS.md](AGENTS.md).
+Maintenance instructions are in [AGENTS.md](AGENTS.md).
