@@ -80,10 +80,13 @@ flowchart TD
 7. **Deliver.** The changes and a report — cost, tokens, rounds and minor findings — appear on the
    task's page, and your phone gets a notification.
 8. **Merge.** The factory pushes its own branch, opens the pull request assigning you as
-   reviewer, and closes the task when you merge. It cannot write to the main branch: GitHub's own
-   rules reject it. Tested against GitHub with the publisher's credential: writing to the main
-   branch, creating tags, changing workflows, merging its own pull request, changing settings or
-   rules and granting itself more access were all rejected; its own branch and pull request were
+   reviewer, and closes the task when you merge. It publishes as a **dedicated GitHub App**: an
+   identity for programs, installed only on the chosen repositories, that may write code and pull
+   requests and nothing else. Each publication gets a one-hour key valid for a single repository.
+   GitHub's own rules keep the protected branches for you alone. Tested against GitHub with the
+   app: writing to protected branches, creating tags, changing workflows, merging its own pull
+   request (also into the production branch), starting a workflow, reading secrets, changing
+   settings or rules and granting access were all rejected; its own branch and pull request were
    accepted.
 9. **Deploy.** Only a person deploys, from GitHub or by asking an assistant that uses their own
    account. The factory never deploys.
@@ -106,8 +109,8 @@ flowchart LR
     Page --> Coord[Coordinator: guides the stages, holds no keys]
     Coord --> ModelBox[Model box: one agent, its model credential only]
     ModelBox -->|asks to run a command| CmdBox[Command box: no network, no credentials]
-    Coord --> Pub[Publisher: the only GitHub write key]
-    Pub -->|own branch and pull request only| GH[(GitHub)]
+    Coord --> Pub[Publisher: the only GitHub write access, as an app]
+    Pub -->|one-hour key, one repository: own branch and pull request| GH[(GitHub)]
     GH -->|protected main branch: only you merge| You
 ```
 
@@ -116,8 +119,22 @@ flowchart LR
 | Agents | Read the task material and propose changes | See other agents' work, reach the home network, hold keys, publish |
 | Command box | Run the agent's commands | Reach the network or any credential |
 | Coordinator | Guide the stages and record everything | Use any key |
-| Publisher | Push a new branch and open its pull request | Merge, deploy, change workflows or change settings |
+| Publisher | Push a new branch and open its pull request | Merge, deploy, start or change workflows, touch secrets or change settings |
 | GitHub rules | Reject writes to protected branches | — they hold even if the factory were compromised |
+
+**Why an app and not a second user account.** A collaborator account with write access can, on
+GitHub, start any workflow by hand — including the ones that deploy to production — and replace the
+secrets those workflows use. Branch rules do not cover either. An app only gets the permissions it
+is given, so those actions are refused by GitHub itself, not by the factory's own code.
+
+Two lessons from the switch:
+
+- **A required approval is not necessarily a human one.** An app's approval may count. To keep the
+  production branch for the person, the rule that works is "only the owner may update it".
+- **Credentials change shape.** In 2026 the one-hour keys GitHub hands to apps (installation
+  tokens) grew from about 40 to about 520 characters, with dots and dashes. The publisher's format
+  check predated that and rejected the first real one. Checking against the real GitHub before
+  switching over caught it; the tests now use a key of the new shape.
 
 ## Where it stands
 
@@ -126,7 +143,7 @@ flowchart LR
 | Conversation, frozen task, implementer, automated checks, independent review, record | **Verified** on real tasks, so far documentation and analysis work |
 | Task page, start from the phone, model choice per role, notifications | **Verified** |
 | [Terminal for the agents](agent-terminal.md), with no network | **Verified**: the same task took 12 minutes instead of 29 |
-| Automatic branch and pull request, task closed on merge | **Installed**; GitHub's rejection of forbidden operations **verified**; the first pull request from a real task is pending |
+| Automatic branch and pull request, task closed on merge | **Installed**, publishing as a dedicated GitHub App; GitHub's rejection of forbidden operations, including deploys and secrets, **verified**; the first pull request from a real task is pending |
 | Installing a project's dependencies, so code tasks can run their tests | **Designed** |
 | Code tests and checks on the running product | **Planned** |
 
