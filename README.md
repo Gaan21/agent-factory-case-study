@@ -159,6 +159,10 @@ Two lessons from the switch:
 
 Passing one layer does not replace the others.
 
+The [quality roadmap](quality-roadmap.md) explains the planned steps toward a dependable starting
+point: checkable tasks, review that converges, tests of the product and the reviewer, and recovery
+before unattended work. It describes design goals, not completed capabilities.
+
 ## A case study that grows with the project
 
 Each update answers three questions: **What was the problem? What changed, and how does it work
