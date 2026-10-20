@@ -58,6 +58,19 @@ The executor opens the command box, runs the line, records what happened and
 returns the output. The command never runs where the credential and the Internet
 are, and the part that has Internet never runs a command.
 
+### Connecting the agent: a custom MCP server
+
+The tool is exposed through **a custom MCP server**. MCP (*Model Context Protocol*)
+is a standard way for agent programs to discover and call external tools. Our
+server is a small adapter: it advertises the `terminal` tool, receives the command
+and its limits, passes the request to the executor and returns the result. The
+same interface serves OpenCode and Claude Code, without enabling their built-in
+command tools.
+
+**MCP connects; it does not isolate.** Network, credential and file boundaries are
+enforced by the command box, outside the model. The executor enforces limits and
+keeps the command log. Using MCP alone would not make a terminal safe.
+
 ### Who can do what
 
 | Role | Terminal | On its task material |
