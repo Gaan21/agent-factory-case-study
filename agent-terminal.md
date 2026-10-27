@@ -1,8 +1,8 @@
 # A terminal for the agents
 
 **Status: verified** for the first part, a terminal with no network and no new
-tools. Installing a project's dependencies is a second part: **designed, with a
-first version built and not yet run on the factory** ([below](#next-dependencies)). The savings compared with working without a terminal have been
+tools. Installing a project's dependencies is a second part: **verified on the
+factory's machine for one app, not yet wired into the terminal** ([below](#next-dependencies)). The savings compared with working without a terminal have been
 measured in **a single repetition** of the same task.
 
 ## What was the problem?
@@ -193,8 +193,8 @@ shows the direction and the order of magnitude, not a figure that will repeat.
 
 ## Next: dependencies
 
-**Status: designed and decided; a first version is built, not yet run on the
-factory's machine.** Its details and lessons are in [dependencies](dependencies.md).
+**Status: verified on the factory's machine for one app; not yet wired into
+the terminal.** Its details and lessons are in [dependencies](dependencies.md).
 The original design follows.
 
 **The problem.** A web project's tests, linter and build need its dependencies:

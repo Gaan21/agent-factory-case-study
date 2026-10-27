@@ -1,8 +1,7 @@
 # Dependencies without network for the agents
 
-**Status: design decided, first version built, not yet run on the factory's
-machine.** The lessons below were measured in a local rehearsal with the network
-cut off. None of this is verified on the factory yet.
+**Status: verified on the factory's machine** for one mobile app, run by hand.
+Not yet wired into the agents' command boxes or the automated checks.
 
 ## What is the problem?
 
@@ -15,7 +14,7 @@ network, nothing can download them.
 Installing them means running other people's code with Internet access, so the
 installation itself has to be contained too.
 
-## How will it work?
+## How does it work?
 
 Installing is split from working, and each step gets the least it needs.
 
@@ -65,7 +64,8 @@ time.
 
 ## What measuring taught before building
 
-These came from a local rehearsal with the network blocked, not from reasoning:
+These came from a local rehearsal with the network blocked, and were later
+confirmed on the factory's machine:
 
 - **"Downloaded beforehand" is not "works offline".** The analyzer starts its
   linting plugin by resolving the plugin's dependencies again, on the Internet,
@@ -85,10 +85,40 @@ These came from a local rehearsal with the network blocked, not from reasoning:
   checks it against the fingerprint the package itself publishes, and places it
   where the library looks, without faking the library's own installer.
 
+## What the factory's machine taught
+
+It took four rounds on the factory's machine. In the end, with no network and on
+the latest version of the app's main branch:
+
+| Check | Result |
+|---|---|
+| Planted lint violation | Found, with the exact finding |
+| Analysis of the real code | Clean |
+| Tests | 637 passed |
+| Web build | Finished |
+| Sealed installation after the checks | Unchanged, file by file |
+| Product files changed by the checks | None |
+
+The sealed installation takes about 490 MB.
+
+- **The toolchain writes into itself.** The first time it runs, the app's build
+  tool prepares its own parts inside its install folder. Read-only, it failed.
+  Each box now gets its own copy of the toolchain (about 2.5 GB, three seconds),
+  thrown away afterwards.
+- **"Offline mode" was not fully offline.** Before installing the app's
+  dependencies, the tool prepares its own without the offline option, and asks
+  the Internet for security advisories. What it writes in that step (8 small
+  files) is now stored with the sealed installation and added to every offline
+  copy.
+- **Test the install the way it will be used.** The installer's own offline
+  check missed that failure because it reused the toolchain already prepared
+  with network. It now starts from a fresh copy, like the agents' boxes.
+- **Evidence takes space too.** Keeping each round's full working folder,
+  toolchain copies included, cost several gigabytes per round. The factory now
+  keeps the logs and drops the copies.
+
 ## What is still open
 
-- Running the install and the measurement on the factory's machine. Until then,
-  everything above is design plus a local rehearsal.
 - Wiring the sealed dependencies into the agents' command boxes and into the
   automated checks.
 - Old fingerprints take disk space until someone retires them. Retiring one is a

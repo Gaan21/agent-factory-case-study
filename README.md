@@ -144,7 +144,7 @@ Two lessons from the switch:
 | Task page, start from the phone, model choice per role, notifications | **Verified** |
 | [Terminal for the agents](agent-terminal.md), with no network | **Verified**: the same task took 12 minutes instead of 29 |
 | Automatic branch and pull request, task closed on merge | **Installed**, publishing as a dedicated GitHub App; GitHub's rejection of forbidden operations, including deploys and secrets, **verified**; the first pull request from a real task is pending |
-| [Installing a project's dependencies](dependencies.md), so code tasks can run their tests | **Designed and first version built**; not yet run on the factory's machine |
+| [Installing a project's dependencies](dependencies.md), so code tasks can run their tests | **Verified on the factory's machine** for one app; not yet wired into the agents' boxes |
 | Code tests and checks on the running product | **Planned** |
 
 ## How a deliverable will be assessed
