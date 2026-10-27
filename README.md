@@ -144,7 +144,7 @@ Two lessons from the switch:
 | Task page, start from the phone, model choice per role, notifications | **Verified** |
 | [Terminal for the agents](agent-terminal.md), with no network | **Verified**: the same task took 12 minutes instead of 29 |
 | Automatic branch and pull request, task closed on merge | **Installed**, publishing as a dedicated GitHub App; GitHub's rejection of forbidden operations, including deploys and secrets, **verified**; the first pull request from a real task is pending |
-| Installing a project's dependencies, so code tasks can run their tests | **Designed** |
+| [Installing a project's dependencies](dependencies.md), so code tasks can run their tests | **Designed and first version built**; not yet run on the factory's machine |
 | Code tests and checks on the running product | **Planned** |
 
 ## How a deliverable will be assessed
@@ -170,5 +170,7 @@ now? What evidence is there, and what remains open?** Deep dives so far:
 
 - [A terminal for the agents](agent-terminal.md): how agents run commands without network or
   credentials, and what it saved.
+- [Dependencies without network](dependencies.md): how a project's packages get installed without
+  showing the code to the Internet or letting a task change them. Work in progress.
 
 Maintenance instructions are in [AGENTS.md](AGENTS.md).

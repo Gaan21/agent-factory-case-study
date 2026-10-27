@@ -1,8 +1,8 @@
 # A terminal for the agents
 
 **Status: verified** for the first part, a terminal with no network and no new
-tools. Installing a project's dependencies is a second part: **designed, not
-built yet** ([below](#next-dependencies-designed-not-built-yet)). The savings compared with working without a terminal have been
+tools. Installing a project's dependencies is a second part: **designed, with a
+first version built and not yet run on the factory** ([below](#next-dependencies)). The savings compared with working without a terminal have been
 measured in **a single repetition** of the same task.
 
 ## What was the problem?
@@ -191,10 +191,11 @@ shows the direction and the order of magnitude, not a figure that will repeat.
   laptop does not have the administrator-only policy, so what was measured there
   was not enough. The verification that counts was done on the factory's machine.
 
-## Next: dependencies (designed, not built yet)
+## Next: dependencies
 
-**Status: designed and decided, not built.** Nothing in this section has been
-measured on the factory's machine yet.
+**Status: designed and decided; a first version is built, not yet run on the
+factory's machine.** Its details and lessons are in [dependencies](dependencies.md).
+The original design follows.
 
 **The problem.** A web project's tests, linter and build need its dependencies:
 hundreds of third-party packages. The command box has no network, so they must be
@@ -231,7 +232,7 @@ flowchart LR
 | Decision | Why |
 |---|---|
 | Dependencies live outside the task material, read-only | A stuck agent cannot "fix" a test by patching a library where nobody looks. The deliverable does not carry them, and the reviewer tests against the same installation. |
-| No cache between tasks, with a time watcher | One task cannot contaminate the next. Each installation records how long it took and what it downloaded; if it exceeds 5 minutes or 20% of the task, the report flags it, and that data decides whether a cache is worth it. |
+| ~~No cache between tasks~~ One sealed installation per fingerprint, with a time watcher (changed later: see [dependencies](dependencies.md)) | One task cannot contaminate the next: none of them can write to it. Each installation records how long it took and what it downloaded. |
 | A deliverable that changes dependencies is rejected | What was tested is what gets delivered, and the person chooses the third-party code. |
 | A memory cap per turn | One command can no longer exhaust the machine. |
 | Exact runtime and package-manager versions, from their official source, checked by fingerprint | Without network the package manager cannot download itself; if a task asks for a version that is not installed, it does not start. |
