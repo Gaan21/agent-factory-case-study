@@ -172,5 +172,7 @@ now? What evidence is there, and what remains open?** Deep dives so far:
   credentials, and what it saved.
 - [Dependencies without network](dependencies.md): how a project's packages get installed without
   showing the code to the Internet or letting a task change them. Work in progress.
+- [Checking the checks](checking-the-checks.md): planted translation mistakes exposed gaps in
+  existing checks. Local measurements, not a completed translation gate.
 
 Maintenance instructions are in [AGENTS.md](AGENTS.md).
