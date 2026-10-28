@@ -2,7 +2,7 @@
 
 **Status: verified** for the first part, a terminal with no network and no new
 tools. Installing a project's dependencies is a second part: **verified on the
-factory's machine for one app, not yet wired into the terminal** ([below](#next-dependencies)). The savings compared with working without a terminal have been
+factory's machine for one app, wired into the terminal** ([below](#next-dependencies)). The savings compared with working without a terminal have been
 measured in **a single repetition** of the same task.
 
 ## What was the problem?
@@ -193,8 +193,8 @@ shows the direction and the order of magnitude, not a figure that will repeat.
 
 ## Next: dependencies
 
-**Status: verified on the factory's machine for one app; not yet wired into
-the terminal.** Its details and lessons are in [dependencies](dependencies.md).
+**Status: verified on the factory's machine for one app and wired into the
+terminal; no real task yet.** Its details and lessons are in [dependencies](dependencies.md).
 The original design follows.
 
 **The problem.** A web project's tests, linter and build need its dependencies:

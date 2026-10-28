@@ -1,7 +1,8 @@
 # Dependencies without network for the agents
 
-**Status: verified on the factory's machine** for one mobile app, run by hand.
-Not yet wired into the agents' command boxes or the automated checks.
+**Status: verified on the factory's machine** for one mobile app: installed by
+hand, wired into the agents' command boxes and checked by a verifier with no
+model. Not yet used by a real task with models.
 
 ## What is the problem?
 
@@ -117,9 +118,41 @@ The sealed installation takes about 490 MB.
   toolchain copies included, cost several gigabytes per round. The factory now
   keeps the logs and drops the copies.
 
+## The verifier: checks that run code, with no model
+
+Tests are the agent's own code, so checking them means running that code. A
+separate role does it, the **verifier**. It has no model: a fixed program starts
+each step in a fresh box with no network, like the agents' commands, and keeps
+the result where no box can reach it. It needs no new permissions.
+
+| Check | How |
+|---|---|
+| Dependencies | The deliverable cannot change them; checked without running anything |
+| Linter exceptions | No new exception to the architecture rules; also without running anything |
+| Analysis | A planted violation must show up; only warnings **new compared with the starting version** fail |
+| Formatting | **No worse than before**: new files formatted, already formatted files stay so. The starting version itself is not fully formatted |
+| Translations, tests, build | Generating translations changes nothing, tests pass, the web build finishes |
+
+Measured on the factory's machine: a deliverable identical to the starting
+version passed everything in about four minutes; one with a new warning, an
+unformatted file and a broken test failed exactly those three. After the agent's
+commands, removing what the toolchain generates left the same files as the
+starting version.
+
+Two more lessons:
+
+- **"Offline" has to be asked for every time.** After installing offline, a
+  plain test command tries to resolve packages on the Internet again. The agent
+  has to be told to skip that on every command.
+- **A deliberately malicious deliverable could fake its own test result** from
+  inside, as in any CI. That code stays in the change the reviewer and the
+  person read.
+
 ## What is still open
 
-- Wiring the sealed dependencies into the agents' command boxes and into the
-  automated checks.
+- A real task with models.
+- Checks specific to each project, such as its own translation-file check.
+  Decided: a catalogue of check boxes, switched on per project in the factory's
+  configuration, none by default.
 - Old fingerprints take disk space until someone retires them. Retiring one is a
   human decision: the factory moves it aside and never deletes it on its own.
