@@ -132,12 +132,18 @@ the result where no box can reach it. It needs no new permissions.
 | Analysis | A planted violation must show up; only warnings **new compared with the starting version** fail |
 | Formatting | **No worse than before**: new files formatted, already formatted files stay so. The starting version itself is not fully formatted |
 | Translations, tests, build | Generating translations changes nothing, tests pass, the web build finishes |
+| The project's own checks | "Check boxes" from a catalogue in the factory's configuration, switched on per project; **none by default**. Each must finish cleanly without changing any file |
 
 Measured on the factory's machine: a deliverable identical to the starting
 version passed everything in about four minutes; one with a new warning, an
 unformatted file and a broken test failed exactly those three. After the agent's
 commands, removing what the toolchain generates left the same files as the
 starting version.
+
+A project's own check earned its place at once: with one translation missing a
+key, generating translations and all 637 tests still passed. Only the project's
+translation-file check caught it. No single translation check covers what the
+others do.
 
 Two more lessons:
 
@@ -151,8 +157,5 @@ Two more lessons:
 ## What is still open
 
 - A real task with models.
-- Checks specific to each project, such as its own translation-file check.
-  Decided: a catalogue of check boxes, switched on per project in the factory's
-  configuration, none by default.
 - Old fingerprints take disk space until someone retires them. Retiring one is a
   human decision: the factory moves it aside and never deletes it on its own.
