@@ -46,3 +46,36 @@ the originals.
 This is a tested local candidate, not an installed gate. A pass only covers resource integrity.
 It does not prove coverage of every screen, separate document, language quality, or behavior in
 the factory's runtime. The combined translation gate is still work in progress.
+
+## The second piece: text that skipped the translation system
+
+The products already read their texts from language files. The remaining risk is a change that
+writes a button label such as "Save" straight into the code instead. Catalogs that match perfectly
+cannot see that.
+
+The detector has two parts:
+
+- **One common rule** for every technology. It blocks text with letters in a place a person sees:
+  screen content, attributes and parameters whose last word is `label`, `title`, `hint`, `message`
+  or similar, metadata, notices and dialogs, system prompts, and a technical error shown as is.
+  Logs, internal errors, routes, URLs, symbols and declared brand names do not count.
+- **One reader per language.** It walks the code with that language's real parser and only lists
+  each text with where it appears. It decides nothing. A new framework needs a reader, not a new rule.
+
+There are no exclusions by length, punctuation, folder or key: "No" or "Save." on a button blocks.
+What the analysis cannot classify, such as a sentence in an unrecognized property or an error shown
+only by its variable name, becomes a doubt for the reviewer, who follows the path. A legitimate case
+is justified next to the text, with its reason, and the reviewer decides.
+
+A simple writing rule keeps this practical: logs and internal errors use one technical language and
+never reach the screen; an error that reaches a person carries a code that the screen translates.
+The detector watches where text is shown, not every error that is raised.
+
+It scans all declared code, not only the change. The first run on copies of real products mostly
+found the detector's own false positives, such as a technical word that happened to end like a
+visible one. They were fixed with general rules and a test case each. An independent review then
+found chained errors and notice calls that slipped through. The final run reports a few real cases,
+such as a system notification channel name fixed in one language.
+
+This is a tested local candidate: seeded cases in three syntaxes and read-only copies, not an
+installed gate. Text that arrives through variables or from a server still needs path review.
