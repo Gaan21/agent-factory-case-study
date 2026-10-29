@@ -145,6 +145,7 @@ Two lessons from the switch:
 | [Terminal for the agents](agent-terminal.md), with no network | **Verified**: the same task took 12 minutes instead of 29 |
 | Automatic branch and pull request, task closed on merge | **Installed**, publishing as a dedicated GitHub App; GitHub's rejection of forbidden operations, including deploys and secrets, **verified**; the first pull request from a real task is pending |
 | [Installing a project's dependencies](dependencies.md), so code tasks can run their tests | **Verified on the factory's machine** for one app, wired into the agents' boxes and a verifier with no model; no real task yet |
+| [Translation checks](checking-the-checks.md) | **Installed and exercised on Linux fixtures**, not enabled as a requirement for tasks; product coverage and the review of doubts remain open |
 | Code tests and checks on the running product | **Planned** |
 
 ## How a deliverable will be assessed
@@ -173,6 +174,6 @@ now? What evidence is there, and what remains open?** Deep dives so far:
 - [Dependencies without network](dependencies.md): how a project's packages get installed without
   showing the code to the Internet or letting a task change them. Work in progress.
 - [Checking the checks](checking-the-checks.md): planted translation mistakes exposed gaps in
-  existing checks. Local measurements, not a completed translation gate.
+  existing checks. From local measurements to an isolated Linux trial, not an enabled translation gate.
 
 Maintenance instructions are in [AGENTS.md](AGENTS.md).

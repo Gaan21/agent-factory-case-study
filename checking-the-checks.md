@@ -43,9 +43,9 @@ without interpretation. Missing tools or an unsupported structure produce an inc
 not a pass. Tests use clean and planted samples, plus copies of real resources without changing
 the originals.
 
-This is a tested local candidate, not an installed gate. A pass only covers resource integrity.
-It does not prove coverage of every screen, separate document, language quality, or behavior in
-the factory's runtime. The combined translation gate is still work in progress.
+The first tests were local. The installed trial is described below; a pass still only covers
+resource integrity. It does not prove coverage of every screen, separate document, or language
+quality. The combined translation gate is still work in progress.
 
 ## The second piece: text that skipped the translation system
 
@@ -77,5 +77,27 @@ visible one. They were fixed with general rules and a test case each. An indepen
 found chained errors and notice calls that slipped through. The final run reports a few real cases,
 such as a system notification channel name fixed in one language.
 
-This is a tested local candidate: seeded cases in three syntaxes and read-only copies, not an
-installed gate. Text that arrives through variables or from a server still needs path review.
+Those first tests used seeded cases in three syntaxes and read-only copies. Text that arrives
+through variables or from a server still needs path review.
+
+## Installed and tested is not enabled
+
+Both checks now have a shared connection to the task workflow, separate from each technology's
+code tests. They read the product in a read-only box with no network, using pinned tools and
+project descriptions kept outside the product. They do not load its scripts, plugins, or settings.
+
+The installation has been exercised on Linux with clean samples and planted mistakes across the
+three project profiles. Tests check the expected results, unchanged inputs, read-only mounts,
+the absence of personal folders, and a separate network space. This is not a general security
+audit or coverage of every output of an application.
+
+The first launch refused to start because the environment required the isolation options to be
+expressed differently. The launcher was corrected without removing isolation, then tested in the
+actual environment. Passing the local tests had not established that compatibility.
+
+**The checks remain disabled.** Before they become a requirement for tasks, the current products
+still need to be checked and the route from a detector's doubt to the reviewer's evidence needs
+to be completed. For now, doubts and written justifications block; they are not automatic passes.
+
+Installed, exercised on samples, and enabled to accept a deliverable are three different results.
+A test of the checker is not a guarantee about the product.
