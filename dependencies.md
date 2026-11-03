@@ -2,7 +2,9 @@
 
 **Status: verified on the factory's machine** for one mobile app: installed by
 hand, wired into the agents' command boxes and checked by a verifier with no
-model. Not yet used by a real task with models.
+model. Also exercised end to end on one fictional coding task with an implementer
+and a reviewer; assisted recovery was needed. This is not unattended operation or
+human acceptance of the resulting product.
 
 ## What is the problem?
 
@@ -154,8 +156,30 @@ Two more lessons:
   inside, as in any CI. That code stays in the change the reviewer and the
   person read.
 
+## An end-to-end rehearsal is not a guideline comparison
+
+The implementer built a fictional pending-submissions inbox. The verifier ran
+analysis, formatting, translation generation, tests and a web build; the reviewer
+accepted the candidate with two missing regression tests noted. Delivery was a
+local patch for human review, not a change applied to the app.
+
+The handoff needed repairs: one check tried to inspect another account's private
+folder, then treated a large generated build file as product content. Inspection
+now uses a temporary copy with the same generated-file cleanup as ordinary
+collection. A completed execution was collected and processed without asking the
+model to do the work again. This verifies an **assisted, recoverable path**, not a
+failure-free unattended one.
+
+The examined evidence showed no explicit reads of guideline details and no
+verified capture of the index those real calls received. An earlier client probe
+does not fill that gap retrospectively. That does not prove the index was absent
+or that guidelines had no effect. It means this rehearsal cannot establish their
+value: a comparison still needs matched starting points and separate evidence of
+index delivery, detail reads and results.
+
 ## What is still open
 
-- A real task with models.
+- Human acceptance of the demonstration and further tasks; one assisted rehearsal
+  is not evidence of general reliability or of a guideline benefit.
 - Old fingerprints take disk space until someone retires them. Retiring one is a
   human decision: the factory moves it aside and never deletes it on its own.

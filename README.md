@@ -140,20 +140,20 @@ Two lessons from the switch:
 
 | Part | Status |
 |---|---|
-| Conversation, frozen task, implementer, automated checks, independent review, record | **Verified** on real tasks, so far documentation and analysis work |
+| Conversation, frozen task, implementer, automated checks, independent review, record | **Verified** on documentation/analysis tasks and an assisted fictional coding rehearsal; product acceptance remains human |
 | Task page, start from the phone, model choice per role, notifications | **Verified** |
 | [Terminal for the agents](agent-terminal.md), with no network | **Verified**: the same task took 12 minutes instead of 29 |
 | Automatic branch and pull request, task closed on merge | **Installed**, publishing as a dedicated GitHub App; GitHub's rejection of forbidden operations, including deploys and secrets, **verified**; the first pull request from a real task is pending |
-| [Installing a project's dependencies](dependencies.md), so code tasks can run their tests | **Verified on the factory's machine** for one app, wired into the agents' boxes and a verifier with no model; no real task yet |
+| [Installing a project's dependencies](dependencies.md), so code tasks can run their tests | **Verified on the factory's machine** for one app, including an assisted end-to-end coding rehearsal with tests and a web build |
 | [Translation checks](checking-the-checks.md) | **Installed and exercised on Linux fixtures**, not enabled as a requirement for tasks; product coverage and the review of doubts remain open |
-| Code tests and checks on the running product | **Planned** |
+| Code tests / checks on a running product | **Code tests exercised** in the rehearsal; interactive product checks remain **planned** |
 
 ## How a deliverable will be assessed
 
 | Layer | What it checks | Today |
 |---|---|---|
 | Automated rules | Whether the change meets the task's mechanically verifiable conditions | In the workflow |
-| Code tests | Whether the program's parts behave as expected | To be added |
+| Code tests | Whether the program's parts behave as expected | Exercised on one fictional coding task; two regression gaps noted |
 | Running product | Whether the website or app works for the expected user journeys | To be added |
 | Independent review | Whether the result meets the task, and what else is wrong | In the workflow |
 | Human testing | Whether it solves the actual need | Always human; the testing experience is to be built |
