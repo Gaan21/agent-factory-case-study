@@ -143,6 +143,7 @@ Two lessons from the switch:
 | Conversation, frozen task, implementer, automated checks, independent review, record | **Verified** on documentation/analysis tasks and an assisted fictional coding rehearsal; product acceptance remains human |
 | Task page, start from the phone, model choice per role, notifications | **Verified** |
 | [Terminal for the agents](agent-terminal.md), with no network | **Verified**: the same task took 12 minutes instead of 29 |
+| [Keeping the agent runtimes current](keeping-runtimes-current.md), checking the effect instead of pinning versions | **Verified** on both runtimes; updates are run by hand |
 | Automatic branch and pull request, task closed on merge | **Installed**, publishing as a dedicated GitHub App; GitHub's rejection of forbidden operations, including deploys and secrets, **verified**; the first pull request from a real task is pending |
 | [Installing a project's dependencies](dependencies.md), so code tasks can run their tests | **Verified on the factory's machine** for one app, including an assisted end-to-end coding rehearsal with tests and a web build |
 | [Translation checks](checking-the-checks.md) | **Installed and exercised on Linux fixtures**, not enabled as a requirement for tasks; product coverage and the review of doubts remain open |
