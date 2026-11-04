@@ -101,3 +101,20 @@ to be completed. For now, doubts and written justifications block; they are not 
 
 Installed, exercised on samples, and enabled to accept a deliverable are three different results.
 A test of the checker is not a guarantee about the product.
+
+## A separate trap: formatting is not a new call
+
+A change detector compared lines to reject API calls prohibited by that task's rules. Reformatting an
+existing call made its new line look like a new call. Restoring the old line removed the warning,
+but did not fix the detector or establish whether the original use complied with the product rules.
+
+The fix compares complete calls within each file, including how many times each occurs.
+Spaces between recognized code tokens may change; literal contents, arguments and operators may
+not. An example in a comment or a string cannot cancel out a new call in active code. Separate
+checks for suppression comments remain in place.
+
+Regression tests cover formatting that should pass, and new, duplicated or modified calls that
+should fail. This is conservative text comparison, not a language parser: unsupported syntax can
+still produce formatting warnings. The regressions have also passed against the installed code,
+not just the working copy. That verifies this repair, not the entire product. Checking existing
+product code against its own rules remains a separate job; the historical trial is unchanged.
