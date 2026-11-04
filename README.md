@@ -176,5 +176,7 @@ now? What evidence is there, and what remains open?** Deep dives so far:
   showing the code to the Internet or letting a task change them. Work in progress.
 - [Checking the checks](checking-the-checks.md): planted translation mistakes exposed gaps in
   existing checks. From local measurements to an isolated Linux trial, not an enabled translation gate.
+- [Keep the rules small, not hidden](shared-guides.md): short project instructions route to procedures
+  and shared guides. Direct-work connections checked in both clients; automatic updates remain pending.
 
 Maintenance instructions are in [AGENTS.md](AGENTS.md).
