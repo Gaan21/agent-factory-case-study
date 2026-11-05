@@ -35,7 +35,25 @@ framework tutorial, so it stays local.
 These checks establish connection and visibility, not better code or reliable compliance. A reading
 instruction is not a security boundary. Reference skills still need maintenance.
 
-Automatic guide updates and resolving the latest guide revision for each new factory task remain
-pending. The verified connection is for direct work; it does not imply those factory changes shipped.
+## Refresh before loading, not just before answering
+
+A startup hook looked like the obvious place to refresh guides. A local fixture showed that Claude
+Code had already read the imported index before that hook finished. Its first outgoing request
+still contained the old index, even though the file now held the new one. Preparing the file before
+opening the client delivered the new text instead. No real model provider was called for that check.
+
+The chosen direct-work workflow is one explicit refresh command, followed by the usual client
+command. It was checked across the three working projects: selected sources fetched, connection
+verified, new reference saved, and no tracked files changed by the refresh. Download failure may
+use the last intact copy with a stale-copy warning; an altered prepared copy is not that fallback.
+
+Updating the tool itself also exposed a check that demanded the exact executable that had prepared
+the guides. That confused provenance with compatibility. The current tool now checks the retained
+selection, supported format, content and connection instead. Recording how a selection was prepared
+does not mean keeping that executable forever. Shared evidence for the two roles of one task is
+still compared separately.
+
+This is direct-work preparation, not an automatic startup hook or a code-quality result. Resolving
+the latest guides automatically for each new factory task remains pending.
 
 **Useful question:** when moving an instruction, what tells the agent to find it before it matters?
