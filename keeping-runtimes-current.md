@@ -70,6 +70,30 @@ reliable.
 A version requirement would have blocked the second update without saying whether it worked. The
 effect check let it through, raised an alarm worth reading, and then verified it.
 
+## The same rule inside a check: the secret scanner
+
+One of the factory's checks scans the agent's output for secrets with an external scanner. It was
+pinned to an exact version and binary checksum, for a good reason: a changed scanner that says
+"clean" is the worst possible outcome. The price was different, though. The first security update
+of the operating system would have left the check in error, and no result could be accepted until
+someone copied the new checksum by hand.
+
+Now the check verifies the effect. Before scanning the agent's output, the scanner must find a fake
+token shaped like a real credential, **generated at random on every call**. If it misses it, the
+check errors and does not trust the scanner. Version and checksum are still recorded, only to know
+what did the scan.
+
+What was measured while changing it:
+
+- **The newer scanner no longer flagged the fixed token the old test used**: an ordered sequence
+  that looks like a documentation example. A fixed bait would have given false confidence right
+  when updating. The random one was caught in 200 of 200 calls.
+- **The older, installed version catches it too**: clean passes, a secret fails, and a scanner that
+  sees nothing is an error. Installed with the full test battery, including the real scan inside the
+  sandbox without network.
+
+The limit is that of any bait: it shows the scanner detects one known shape, not all of them.
+
 ## Limits
 
 - The probe is not a full task. It checks the pieces the agents depend on, not the quality of their

@@ -53,7 +53,46 @@ selection, supported format, content and connection instead. Recording how a sel
 does not mean keeping that executable forever. Shared evidence for the two roles of one task is
 still compared separately.
 
-This is direct-work preparation, not an automatic startup hook or a code-quality result. Resolving
-the latest guides automatically for each new factory task remains pending.
+This is direct-work preparation, not an automatic startup hook or a code-quality result.
+
+## Fresh between tasks, stable within a task
+
+An implementer and its reviewer need the same rules, even if the guides change while the work is
+in progress. That does not require freezing the whole factory on an old version.
+
+The new task-preparation path fetches the selected guide sources, records their exact commits and
+retains their files. The next task resolves the branch again; corrections and review reuse the
+current task's retained selection without downloading again. If the initial download fails, the
+task stops rather than labelling an old mirror current.
+
+Local tests with the real guide tool checked that a guide update reaches the next task without
+changing the previous one, and that the previous task's reviewer still receives its original
+selection. The actual app, website and panel selections were also prepared locally: translation
+and design topics were readable, with matching selections for both roles.
+
+## Required context is not something the project manager must remember
+
+A product-wide design contract can live in a different repository from the code being changed.
+Each factory configures its own repository list. When it requires the complete product, a program
+adds omitted repositories for consultation **before approval**; the approved task shows that list.
+It does not silently add sources to an already approved task or lend another factory's access.
+
+A check requires the design contract to be present, readable, nonempty and not reached through
+links. Both roles are told where to find the original, not given another copy of its policy.
+Local trials with the real repositories delivered the complete product when starting from each
+of its three code surfaces. Missing-context cases were tested separately and stopped before an
+agent session could begin.
+
+The preparation path and required-context checks are now **installed and tested on the execution
+machine**. The tests ran against the installed modules, as the normal unprivileged coordinator,
+in an isolated process with no outside network and no access to the real task record. The existing
+guide tool prepared the three real selections without an update. Translation and design topics
+were readable, and the reviewer view reused the retained selection.
+
+This was not a new real agent task. Product bases were synthetic; transport and models were
+simulated. No product code ran, and automatic task admission stayed closed. These checks do not
+prove native runtime loading, model compliance or better code. Writing across repositories,
+including updating product knowledge within the same task, remains a separate increment. The
+shared translation policy comes from the guides; supplying it does not activate new product checks.
 
 **Useful question:** when moving an instruction, what tells the agent to find it before it matters?
