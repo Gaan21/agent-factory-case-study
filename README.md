@@ -147,6 +147,7 @@ Two lessons from the switch:
 | Automatic branch and pull request, task closed on merge | **Installed**, publishing as a dedicated GitHub App; GitHub's rejection of forbidden operations, including deploys and secrets, **verified**; the first pull request from a real task is pending |
 | [Installing a project's dependencies](dependencies.md), so code tasks can run their tests | **Verified on the factory's machine** for one app, including an assisted end-to-end coding rehearsal with tests and a web build |
 | [Translation checks](checking-the-checks.md) | **Installed and exercised on Linux fixtures**, not enabled as a requirement for tasks; product coverage and the review of doubts remain open |
+| [Keeping the account email out of web requests](account-email-filter.md) for the product owners that run on Claude | **Verified on the factory's machine** with a seeded attempt on each product owner; repeated after every update |
 | Code tests / checks on a running product | **Code tests exercised** in the rehearsal; interactive product checks remain **planned** |
 
 ## How a deliverable will be assessed
@@ -178,5 +179,8 @@ now? What evidence is there, and what remains open?** Deep dives so far:
   existing checks. From local measurements to an isolated Linux trial, not an enabled translation gate.
 - [Keep the rules small, not hidden](shared-guides.md): short project instructions route to procedures
   and shared guides. Direct-work connections checked in both clients; automatic updates remain pending.
+
+- [Keeping the account email out of web requests](account-email-filter.md): a small deterministic
+  filter, and a seeded attempt whose negative control first passed for the wrong reason.
 
 Maintenance instructions are in [AGENTS.md](AGENTS.md).
