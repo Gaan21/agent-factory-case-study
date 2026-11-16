@@ -15,7 +15,7 @@ having to read its code**. That is a goal under development, not a guarantee of 
 
 | In a team | In the factory |
 |---|---|
-| Product manager who clarifies the request | **Project manager agent**: talks with you and writes the task |
+| Product manager who clarifies the request | **Project manager agent**, called the [product owner](product-owner.md), one per workstream: talks with you and writes the task |
 | Developer | **Implementer agent**: makes the change in an isolated workspace |
 | Continuous integration | **Automated checks**: rules that apply without judgment |
 | Code review | **Reviewer agent**: a different session that never sees the implementer's reasoning |
@@ -142,6 +142,7 @@ Two lessons from the switch:
 |---|---|
 | Conversation, frozen task, implementer, automated checks, independent review, record | **Verified** on documentation/analysis tasks and an assisted fictional coding rehearsal; product acceptance remains human |
 | Task page, start from the phone, model choice per role, notifications | **Verified** |
+| [A product owner per workstream](product-owner.md): briefs the person approves, one agent and one path per workstream, Claude among the models | **Verified on the factory's machine** from a computer's browser; the phone is not tested yet |
 | [Terminal for the agents](agent-terminal.md), with no network | **Verified**: the same task took 12 minutes instead of 29 |
 | [Keeping the agent runtimes current](keeping-runtimes-current.md), checking the effect instead of pinning versions | **Verified** on both runtimes; updates are run by hand |
 | Automatic branch and pull request, task closed on merge | **Installed**, publishing as a dedicated GitHub App; GitHub's rejection of forbidden operations, including deploys and secrets, **verified**; the first pull request from a real task is pending |
@@ -171,6 +172,8 @@ before unattended work. It describes design goals, not completed capabilities.
 Each update answers three questions: **What was the problem? What changed, and how does it work
 now? What evidence is there, and what remains open?** Deep dives so far:
 
+- [A product owner per workstream](product-owner.md): briefs saved only when the person approves
+  them, and one agent per workstream that never sees the others.
 - [A terminal for the agents](agent-terminal.md): how agents run commands without network or
   credentials, and what it saved.
 - [Dependencies without network](dependencies.md): how a project's packages get installed without
@@ -179,7 +182,6 @@ now? What evidence is there, and what remains open?** Deep dives so far:
   existing checks. From local measurements to an isolated Linux trial, not an enabled translation gate.
 - [Keep the rules small, not hidden](shared-guides.md): short project instructions route to procedures
   and shared guides. Direct-work connections checked in both clients; automatic updates remain pending.
-
 - [Keeping the account email out of web requests](account-email-filter.md): a small deterministic
   filter, and a seeded attempt whose negative control first passed for the wrong reason.
 
