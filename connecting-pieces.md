@@ -82,9 +82,10 @@ flowchart LR
 
 ## Limits
 
-- Today there are four kinds of piece: workstream, repository, guide set and check. Turning each
-  technology's checks into a piece is the next step. Pieces for tools that connect to the real world
-  for testing, or for workstreams that are not about software, are still to be designed.
+- There were four kinds of piece: workstream, repository, guide set and check. Technologies became
+  the fifth in the next step ([three levels](technology-checks.md)). Pieces for tools that connect
+  to the real world for testing, or for workstreams that are not about software, are still to be
+  designed.
 - A new workstream still needs its own agent service, key and web route set up by hand.
 - A piece only takes effect from the reviewed main branch, installed by a person. There is no
   screen for adding pieces yet.

@@ -38,7 +38,8 @@ flowchart LR
   shown, and the command stops until a person decides.
 - **It applies only the approved plan.** Check prints a fingerprint of the plan, including the
   current content of every foreign file. Apply requires that fingerprint and refuses if anything
-  differs from what the person read.
+  differs from what the person read. Since the owner asked for less ceremony, one command runs it
+  all with one password: check, show the plan, ask, apply that same plan, run the health check.
 - **The machine records what it has.** The installed commit lives on the machine, not in a document.
 
 **The health check** is one command instead of about forty-five test suites run one by one plus a

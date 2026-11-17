@@ -147,6 +147,7 @@ Two lessons from the switch:
 | [Keeping the agent runtimes current](keeping-runtimes-current.md), checking the effect instead of pinning versions | **Verified** on both runtimes; updates are run by hand |
 | [Installing changes with one command and a map](installing-changes.md): every file declared, foreign differences shown, only the approved plan applied | **Verified on the factory's machine**, rollback included; run by a person |
 | [Connecting a repository is declaring it](connecting-pieces.md): one file per piece, one reader and validator, a repository shared by several workstreams | **Verified on the factory's machine**: same catalog as before, health check green; run by a person |
+| [Checking a technology: three levels](technology-checks.md): the engine names no technology; Flutter moved to its own piece and folder, and one app's specifics to that app's piece | **Verified on the factory's machine**: identical behavior byte for byte, health check green; preparing the agent's box is still Flutter-only |
 | Automatic branch and pull request, task closed on merge | **Installed**, publishing as a dedicated GitHub App; GitHub's rejection of forbidden operations, including deploys and secrets, **verified**; the first pull request from a real task is pending |
 | [Installing a project's dependencies](dependencies.md), so code tasks can run their tests | **Verified on the factory's machine** for one app, including an assisted end-to-end coding rehearsal with tests and a web build |
 | [Translation checks](checking-the-checks.md) | **Installed and exercised on Linux fixtures**, not enabled as a requirement for tasks; product coverage and the review of doubts remain open |
@@ -190,5 +191,7 @@ now? What evidence is there, and what remains open?** Deep dives so far:
   of a new installer per change, and a check that found what the survey before it had missed.
 - [Connecting a repository is declaring it](connecting-pieces.md): the catalog as one file per
   piece, what is connected is what is allowed, and a first version that lost a capability.
+- [Checking a technology: three levels](technology-checks.md): an engine that names no technology,
+  a byte-for-byte check before and after, and a review that caught an install that would have stopped.
 
 Maintenance instructions are in [AGENTS.md](AGENTS.md).
