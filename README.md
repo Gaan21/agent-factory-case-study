@@ -145,6 +145,7 @@ Two lessons from the switch:
 | [A product owner per workstream](product-owner.md): briefs the person approves, one agent and one path per workstream, Claude among the models | **Verified on the factory's machine** from a computer's browser; the phone is not tested yet |
 | [Terminal for the agents](agent-terminal.md), with no network | **Verified**: the same task took 12 minutes instead of 29 |
 | [Keeping the agent runtimes current](keeping-runtimes-current.md), checking the effect instead of pinning versions | **Verified** on both runtimes; updates are run by hand |
+| [Installing changes with one command and a map](installing-changes.md): every file declared, foreign differences shown, only the approved plan applied | **Verified on the factory's machine**, rollback included; run by a person |
 | Automatic branch and pull request, task closed on merge | **Installed**, publishing as a dedicated GitHub App; GitHub's rejection of forbidden operations, including deploys and secrets, **verified**; the first pull request from a real task is pending |
 | [Installing a project's dependencies](dependencies.md), so code tasks can run their tests | **Verified on the factory's machine** for one app, including an assisted end-to-end coding rehearsal with tests and a web build |
 | [Translation checks](checking-the-checks.md) | **Installed and exercised on Linux fixtures**, not enabled as a requirement for tasks; product coverage and the review of doubts remain open |
@@ -184,5 +185,7 @@ now? What evidence is there, and what remains open?** Deep dives so far:
   and shared guides. Direct-work connections checked in both clients; automatic updates remain pending.
 - [Keeping the account email out of web requests](account-email-filter.md): a small deterministic
   filter, and a seeded attempt whose negative control first passed for the wrong reason.
+- [Installing changes with one command and a map](installing-changes.md): one line per file instead
+  of a new installer per change, and a check that found what the survey before it had missed.
 
 Maintenance instructions are in [AGENTS.md](AGENTS.md).
