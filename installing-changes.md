@@ -26,7 +26,7 @@ otherwise.
 
 ```mermaid
 flowchart LR
-    A[Check: read only.<br/>What changes, what is removed,<br/>what restarts, what looks foreign] --> B{Person approves<br/>that exact plan}
+    A[Check: changes nothing.<br/>What changes, what is removed,<br/>what restarts, what looks foreign] --> B{Person approves<br/>that exact plan}
     B --> C[Apply: keep the previous state,<br/>install, remove, restart<br/>only what is affected and running]
     C --> D[Measure: the common<br/>health check]
     D -->|Problem| E[Go back: restore<br/>the previous state]
