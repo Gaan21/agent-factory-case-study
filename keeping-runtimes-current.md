@@ -94,6 +94,22 @@ What was measured while changing it:
 
 The limit is that of any bait: it shows the scanner detects one known shape, not all of them.
 
+## Updating an app toolchain without giving its checks internet access
+
+An app's software development kit and its code checker (linter) have to work together. The
+factory downloads their dependencies in an isolated workspace that sees only dependency
+declarations, not the app's source or credentials. It then verifies the full app in a separate
+workspace with no network and read-only dependencies. Only a passing combination is activated,
+and the previous combination remains available for rollback.
+
+The first update verified the app offline, restored the previous setup, then activated the new
+one again using the same prepared dependencies. A separate check accepted the app's existing
+background-operation permissions and rejected an added permission.
+
+One cost became obvious: the app checks took about five and a half minutes each time, once before
+activation and again just after. Avoiding that duplicate run when nothing relevant has changed
+is the next improvement, not a saving already delivered.
+
 ## Limits
 
 - The probe is not a full task. It checks the pieces the agents depend on, not the quality of their
